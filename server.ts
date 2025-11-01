@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bookRoutes from './routes/book.routes.ts';
 
 dotenv.config();
 
@@ -23,8 +24,6 @@ mongoose
   });
 
 // Define routes here
-app.get("/", (req, res) => {
-  res.send("Welcome to the Library Management System");
-});
+app.use('/api/books', bookRoutes);
 
 export default app;
