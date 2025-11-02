@@ -1,7 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import bookRoutes from './routes/book.routes.ts';
+import bookRoutes from './routes/book.routes';
+import borrowRoutes from './routes/borrow.routes';
 
 dotenv.config();
 
@@ -24,6 +25,11 @@ mongoose
   });
 
 // Define routes here
+
+// Book routes
 app.use('/api/books', bookRoutes);
+
+// Borrow routes
+app.use('/api/borrows', borrowRoutes)
 
 export default app;

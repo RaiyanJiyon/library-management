@@ -1,0 +1,15 @@
+import mongoose from "mongoose";
+import { IBorrow } from "../interfaces/borrow.interface";
+
+const BorrowSchema = new mongoose.Schema<IBorrow>(
+  {
+    book: { type: String, required: true },
+    quantity: { type: Number, required: true },
+    dueDate: { type: Date, required: true },
+  },
+  { timestamps: true, versionKey: false }
+);
+
+const Borrow = mongoose.model<IBorrow>("Borrow", BorrowSchema);
+
+export default Borrow;
