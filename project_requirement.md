@@ -43,7 +43,7 @@ Your project must include:
 
 * * *
 
-### Generic Error Response ❌
+### Generic Error Response ✅
 
 1. **`message`**: A brief error message explaining what went wrong.
 2. **`success`**: Set to `false` for error responses.
@@ -238,7 +238,7 @@ Supports filtering, and sorting. ✅
 
 * * *
 
-### 6\. Borrow a Book ❌
+### 6\. Borrow a Book ✅
 
 **POST** `/api/borrow`
 

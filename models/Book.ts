@@ -44,6 +44,16 @@ const BookSchema = new mongoose.Schema<IBook>(
     }
 );
 
+BookSchema.methods.updateAvailability = async function (quantity: number): Promise<void> {
+    if (this.copies === 0) {
+        this.available = false;
+    } else {
+        this.available = true;
+    }
+
+    await this.save();
+}
+
 const Book = mongoose.model<IBook>("Book", BookSchema);
 
 export default Book;

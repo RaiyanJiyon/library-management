@@ -12,4 +12,5 @@ export interface IBook {
   description?: string;
   copies: number;
   available?: boolean;
+  updateAvailability: (quantity: number) => Promise<void>;
 }
