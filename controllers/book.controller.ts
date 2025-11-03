@@ -1,6 +1,5 @@
-import { success } from 'zod';
-import Book from '../models/Book.ts';
-import { bookSchema } from '../validators/book.schema.ts';
+import Book from '../models/Book';
+import { bookSchema } from '../validators/book.schema';
 import { Request, Response } from 'express';
 
 export const createBook = async (req: Request, res: Response) => {
@@ -27,7 +26,33 @@ export const createBook = async (req: Request, res: Response) => {
 
 export const getBooks = async (req: Request, res: Response) => {
     try {
-        const books = await Book.find();
+        // Extract query parameters
+        const { filter, sortBy = 'createdAt', sort = 'desc', limit = '10' } = req.query;
+        
+        // Build filter object
+        const filterObj: any = {};
+        if (filter && typeof filter === 'string') {
+            // Validate genre filter
+            const validGenres = ['FICTION', 'NON_FICTION', 'SCIENCE', 'HISTORY', 'BIOGRAPHY', 'FANTASY'];
+            if (validGenres.includes(filter.toUpperCase())) {
+                filterObj.genre = filter.toUpperCase();
+            }
+        }
+        
+        // Build sort object
+        const sortObj: any = {};
+        const sortDirection = sort === 'asc' ? 1 : -1;
+        const sortField = typeof sortBy === 'string' ? sortBy : 'createdAt';
+        sortObj[sortField] = sortDirection;
+        
+        // Parse limit
+        const limitNum = parseInt(limit as string) || 10;
+        
+        // Execute query with filtering, sorting, and limiting
+        const books = await Book.find(filterObj)
+            .sort(sortObj)
+            .limit(limitNum);
+            
         res.status(200).json(
             {
                 success: true,

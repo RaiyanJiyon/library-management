@@ -122,19 +122,19 @@ Your project must include:
 
 **GET** `/api/books`
 
-Supports filtering, and sorting. ❌
+Supports filtering, and sorting. ✅
 
-#### Example Query: ❌
+#### Example Query: ✅
 
 `/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
 
-#### Query Parameters: ❌
+#### Query Parameters: ✅
 
 *   `filter`: Filter by genre
 *   `sort`: `asc` or `desc`
 *   `limit`: Number of results (default: 10)
 
-#### Response: ❌
+#### Response: ✅
 
 ```json
 {
@@ -164,7 +164,7 @@ Supports filtering, and sorting. ❌
 
 **GET** `/api/books/:bookId`
 
-#### Response: ❌
+#### Response: ✅
 
 ```json
 {
@@ -199,7 +199,7 @@ Supports filtering, and sorting. ❌
 }
 ```
 
-#### Response: ❌
+#### Response: ✅
 
 ```json
 {
@@ -226,7 +226,7 @@ Supports filtering, and sorting. ❌
 
 **DELETE** `/api/books/:bookId`
 
-#### Response: ❌
+#### Response: ✅
 
 ```json
 {
