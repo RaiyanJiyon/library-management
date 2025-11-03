@@ -1,12 +1,8 @@
 import zod from "zod";
-import mongoose from "mongoose";
+import { IBorrow } from "../interfaces/borrow.interface";
 
-export const BorrowSchema = zod.object({
-  book: zod.string()
-    .min(1, "Book ID is required")
-    .refine((id) => mongoose.Types.ObjectId.isValid(id), {
-      message: "Invalid book ID format"
-    }),
+export const BorrowSchema: zod.ZodType<IBorrow> = zod.object({
+  book: zod.string().min(1, "Book ID is required"),
   quantity: zod.number().min(1, "Quantity must be at least 1"),
   dueDate: zod.string()
     .transform((str) => new Date(str))

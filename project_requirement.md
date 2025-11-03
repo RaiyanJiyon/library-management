@@ -8,10 +8,10 @@ Your project must include:
 
 *   Proper schema validation ✅
 *   Business logic enforcement (e.g., availability control on borrow) ✅
-*   Use of aggregation pipeline ❌
-*   At least one **Mongoose static or instance method** ❌
+*   Use of aggregation pipeline ✅
+*   At least one **Mongoose static or instance method** ✅
 *   Use of **Mongoose middleware** (`pre`, `post`) ❌
-*   Filtering features ❌
+*   Filtering features ✅
 
 * * *
 
@@ -278,7 +278,7 @@ Supports filtering, and sorting. ✅
 
 * * *
 
-### 7\. Borrowed Books Summary (Using Aggregation) ❌
+### 7\. Borrowed Books Summary (Using Aggregation) ✅
 
 `GET /api/borrow`
 
@@ -297,7 +297,7 @@ Use MongoDB aggregation pipeline to:
 *   Sum total quantity borrowed per book
 *   Return book info and total borrowed quantity
 
-**Response:**
+**Response:** ✅
 
 ```json
 {

@@ -3,7 +3,7 @@ import { IBorrow } from "../interfaces/borrow.interface";
 
 const BorrowSchema = new mongoose.Schema<IBorrow>(
   {
-    book: { type: mongoose.Schema.Types.ObjectId, ref: "Book", required: true },
+    book: { type: String, required: true },
     quantity: { type: Number, required: true },
     dueDate: { type: Date, required: true },
   },

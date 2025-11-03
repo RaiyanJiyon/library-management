@@ -44,6 +44,16 @@ const BookSchema = new mongoose.Schema<IBook>(
     }
 );
 
+BookSchema.pre('save', function (next) {
+    this.available = this.copies > 0;
+    next();
+})
+
+BookSchema.post('save', function (doc, next) {
+    console.log(`Book with ID ${doc._id} has been saved.`);
+    next();
+})
+
 BookSchema.methods.updateAvailability = async function (quantity: number): Promise<void> {
     if (this.copies === 0) {
         this.available = false;
