@@ -10,7 +10,7 @@ Your project must include:
 *   Business logic enforcement (e.g., availability control on borrow) ✅
 *   Use of aggregation pipeline ✅
 *   At least one **Mongoose static or instance method** ✅
-*   Use of **Mongoose middleware** (`pre`, `post`) ❌
+*   Use of **Mongoose middleware** (`pre`, `post`) ✅
 *   Filtering features ✅
 
 * * *

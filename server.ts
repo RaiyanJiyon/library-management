@@ -30,6 +30,6 @@ mongoose
 app.use('/api/books', bookRoutes);
 
 // Borrow routes
-app.use('/api/borrows', borrowRoutes)
+app.use('/api/borrow', borrowRoutes)
 
 export default app;

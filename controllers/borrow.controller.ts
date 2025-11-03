@@ -59,7 +59,7 @@ export const createBorrow = async (req: Request, res: Response) => {
       return res.status(400).json({
         success: false,
         message: "Validation failed",
-        errors: formatZodError(error, req.body),
+        error: formatZodError(error, req.body),
       });
     }
     res.status(400).json({
