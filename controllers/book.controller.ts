@@ -1,8 +1,8 @@
 import { success, ZodError } from "zod";
-import Book from "../models/Book";
-import { bookSchema } from "../validators/book.schema";
+import Book from "../models/Book.js";
+import { bookSchema } from "../validators/book.schema.js";
 import { Request, Response } from "express";
-import { formatZodError } from "../utils/errorFormatter";
+import { formatZodError } from "../utils/errorFormatter.js";
 import mongoose from "mongoose";
 
 // utility to format not found error

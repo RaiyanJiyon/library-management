@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IBorrow } from "../interfaces/borrow.interface";
+import { IBorrow } from "../interfaces/borrow.interface.js";
 
 const BorrowSchema = new mongoose.Schema<IBorrow>(
   {

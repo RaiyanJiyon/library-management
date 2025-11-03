@@ -1,9 +1,9 @@
-import Borrow from "../models/Borrow";
+import Borrow from "../models/Borrow.js";
 import { Request, Response } from "express";
-import { BorrowSchema } from "../validators/borrow.schema";
+import { BorrowSchema } from "../validators/borrow.schema.js";
 import { ZodError } from "zod";
-import { formatZodError } from "../utils/errorFormatter";
-import Book from "../models/Book";
+import { formatZodError } from "../utils/errorFormatter.js";
+import Book from "../models/Book.js";
 
 export const createBorrow = async (req: Request, res: Response) => {
   const session = await Book.startSession();
