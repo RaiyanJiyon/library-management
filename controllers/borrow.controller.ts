@@ -5,7 +5,6 @@ import { ZodError } from "zod";
 import { formatZodError } from "../utils/errorFormatter";
 import Book from "../models/Book";
 
-
 export const createBorrow = async (req: Request, res: Response) => {
   const session = await Book.startSession();
   session.startTransaction();
@@ -42,7 +41,7 @@ export const createBorrow = async (req: Request, res: Response) => {
           book: bookId,
           quantity,
           dueDate,
-        }
+        },
       ],
       { session }
     );
@@ -52,7 +51,7 @@ export const createBorrow = async (req: Request, res: Response) => {
 
     res.status(201).json({
       success: true,
-      message: 'Book borrowed successfully',
+      message: "Book borrowed successfully",
       data: borrow[0],
     });
   } catch (error) {
@@ -61,33 +60,59 @@ export const createBorrow = async (req: Request, res: Response) => {
         success: false,
         message: "Validation failed",
         errors: formatZodError(error, req.body),
-      })
-    }
-    res.status(400).json(
-      { 
-        success: false,
-        message: 'Error creating borrow record',
-        error: error instanceof Error ? error.message : "Unknown error",
       });
+    }
+    res.status(400).json({
+      success: false,
+      message: "Error creating borrow record",
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
-}
+};
 
 export const getBorrows = async (req: Request, res: Response) => {
   try {
-    const borrows = await Borrow.find();
-    res.status(200).json(
+    const borrows = await Borrow.aggregate([
       {
-        success: true,
-        message: 'Borrowed books summary retrieved successfully',
-        data: borrows,
-      }
-    );
+        $group: {
+          _id: "$book",
+          totalQuantity: { $sum: "$quantity" },
+        },
+      },
+      {
+        $lookup: {
+          from: "books",
+          localField: "_id",
+          foreignField: "_id",
+          as: "bookDetails",
+        },
+      },
+      {
+        $unwind: "$bookDetails",
+      },
+      {
+        $project: {
+          _id: 0,
+          book: {
+            title: "$bookDetails.title",
+            isbn: "$bookDetails.isbn",
+          },
+          totalQuantity: 1,
+        },
+      },
+    ]);
+
+    res.status(200).json({
+      success: true,
+      message: "Borrowed books summary retrieved successfully",
+      data: borrows,
+    });
+    
   } catch (error) {
-    res.status(500).json(
-      { 
-        success: false,
-        message: "Error fetching borrow records",
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Error fetching borrow records",
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 };
