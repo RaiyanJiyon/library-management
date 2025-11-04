@@ -42,6 +42,9 @@ export const createBorrow = async (req, res) => {
         });
     }
     catch (error) {
+        // Always cleanup session on error
+        await session.abortTransaction();
+        await session.endSession();
         if (error instanceof ZodError) {
             return res.status(400).json({
                 success: false,
