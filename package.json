@@ -2,7 +2,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsc",
-		"start": "node server.js",
+		"start": "node dist/server.js",
 		"dev": "nodemon --exec tsx server.ts",
 		"lint": "eslint . --ext .ts"
 	},
