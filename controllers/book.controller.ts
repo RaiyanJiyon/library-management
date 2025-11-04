@@ -1,4 +1,4 @@
-import { success, ZodError } from "zod";
+import { ZodError } from "zod";
 import Book from "../models/Book.js";
 import { bookSchema } from "../validators/book.schema.js";
 import { Request, Response } from "express";
@@ -47,7 +47,7 @@ export const getBooks = async (req: Request, res: Response) => {
     } = req.query;
 
     // Build filter object
-    const filterObj: any = {};
+    const filterObj: Record<string, unknown> = {};
     if (filter && typeof filter === "string") {
       // Validate genre filter
       const validGenres = [
@@ -64,7 +64,7 @@ export const getBooks = async (req: Request, res: Response) => {
     }
 
     // Build sort object
-    const sortObj: any = {};
+    const sortObj: Record<string, 1 | -1> = {};
     const sortDirection = sort === "asc" ? 1 : -1;
     const sortField = typeof sortBy === "string" ? sortBy : "createdAt";
     sortObj[sortField] = sortDirection;

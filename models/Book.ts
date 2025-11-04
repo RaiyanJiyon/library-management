@@ -54,7 +54,7 @@ BookSchema.post('save', function (doc, next) {
     next();
 })
 
-BookSchema.methods.updateAvailability = async function (quantity: number): Promise<void> {
+BookSchema.methods.updateAvailability = async function (): Promise<void> {
     if (this.copies === 0) {
         this.available = false;
     } else {
