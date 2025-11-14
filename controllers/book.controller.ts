@@ -1,9 +1,9 @@
 /**
  * Book Controller
- * 
+ *
  * Handles all HTTP requests related to book management.
  * Provides CRUD operations with proper validation and error handling.
- * 
+ *
  * @author Raiyan Jiyon
  * @version 1.0.0
  */
@@ -18,7 +18,7 @@ import mongoose from "mongoose";
 /**
  * Utility function to format not found errors
  * Creates a standardized error object for book not found scenarios
- * 
+ *
  * @param message - Custom error message (optional)
  * @returns Formatted error object
  */
@@ -29,10 +29,10 @@ const notFoundError = (message = "Book not found") => ({
 
 /**
  * Create a new book
- * 
+ *
  * Validates the request data and creates a new book in the database.
  * Returns the created book with success status.
- * 
+ *
  * @param req - Express request object containing book data
  * @param res - Express response object
  * @returns JSON response with created book or error
@@ -41,10 +41,10 @@ export const createBook = async (req: Request, res: Response) => {
   try {
     // Validate request data using Zod schema
     const parsedData = bookSchema.parse(req.body);
-    
+
     // Create new book in database
     const newBook = await Book.create(parsedData);
-    
+
     // Return success response
     res.status(201).json({
       success: true,
@@ -60,7 +60,7 @@ export const createBook = async (req: Request, res: Response) => {
         error: formatZodError(error, req.body),
       });
     }
-    
+
     // Handle other errors
     res.status(400).json({
       success: false,
@@ -72,12 +72,12 @@ export const createBook = async (req: Request, res: Response) => {
 
 /**
  * Get all books with optional filtering, sorting, and pagination
- * 
+ *
  * Retrieves books from the database with support for:
  * - Genre filtering
  * - Sorting by any field (default: createdAt)
  * - Limiting results (default: 10)
- * 
+ *
  * @param req - Express request object with optional query parameters
  * @param res - Express response object
  * @returns JSON response with books array or error
@@ -139,10 +139,10 @@ export const getBooks = async (req: Request, res: Response) => {
 
 /**
  * Get a single book by ID
- * 
+ *
  * Retrieves a specific book from the database using its MongoDB ObjectId.
  * Validates the ID format before querying the database.
- * 
+ *
  * @param req - Express request object with book ID in params
  * @param res - Express response object
  * @returns JSON response with book data or error
@@ -186,10 +186,10 @@ export const getBookById = async (req: Request, res: Response) => {
 
 /**
  * Update an existing book
- * 
+ *
  * Updates a book's information in the database after validating both
  * the book ID format and the request data.
- * 
+ *
  * @param req - Express request object with book ID in params and update data in body
  * @param res - Express response object
  * @returns JSON response with updated book data or error
@@ -212,7 +212,7 @@ export const updateBook = async (req: Request, res: Response) => {
     const updateBook = await Book.findByIdAndUpdate(req.params.id, parsedData, {
       new: true, // Return updated document instead of original
     });
-    
+
     // Check if book was found and updated
     if (!updateBook) {
       return res.status(404).json({
@@ -221,7 +221,7 @@ export const updateBook = async (req: Request, res: Response) => {
         error: notFoundError(),
       });
     }
-    
+
     // Return success response with updated book
     res.status(200).json({
       success: true,
@@ -237,7 +237,7 @@ export const updateBook = async (req: Request, res: Response) => {
         error: formatZodError(error, req.body),
       });
     }
-    
+
     // Handle other errors
     res.status(400).json({
       success: false,
@@ -249,10 +249,10 @@ export const updateBook = async (req: Request, res: Response) => {
 
 /**
  * Delete a book
- * 
+ *
  * Removes a book from the database permanently.
  * Validates the book ID format and checks if the book exists before deletion.
- * 
+ *
  * @param req - Express request object with book ID in params
  * @param res - Express response object
  * @returns JSON response confirming deletion or error
@@ -270,7 +270,7 @@ export const deleteBook = async (req: Request, res: Response) => {
 
     // Delete book from database
     const deletedBook = await Book.findByIdAndDelete(req.params.id);
-    
+
     // Check if book was found and deleted
     if (!deletedBook) {
       return res.status(404).json({
@@ -279,7 +279,7 @@ export const deleteBook = async (req: Request, res: Response) => {
         error: notFoundError(),
       });
     }
-    
+
     // Return success response (data is null for deletions)
     res.status(200).json({
       success: true,

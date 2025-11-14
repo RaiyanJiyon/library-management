@@ -13,12 +13,17 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bookRoutes from './routes/book.routes.js';
 import borrowRoutes from './routes/borrow.routes.js';
-
+import cors from "cors";
 // Load environment variables from .env file
 dotenv.config();
 
 // Initialize Express application
 const app = express();
+
+// Allow requests from your React dev server
+app.use(cors({
+  origin: ['http://localhost:5173']
+}));
 
 // Server configuration
 const PORT = process.env.PORT || 3000;
