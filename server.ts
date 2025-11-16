@@ -25,7 +25,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://library-management-client-phi-wheat.vercel.app/",
+      "https://library-management-client-phi-wheat.vercel.app",
     ],
   })
 );
