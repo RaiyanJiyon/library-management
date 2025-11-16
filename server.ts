@@ -1,9 +1,9 @@
 /**
  * Library Management System - Main Server File
- * 
+ *
  * This is the entry point for the Library Management API.
  * It sets up the Express server, connects to MongoDB, and configures routes.
- * 
+ *
  * @author Raiyan Jiyon
  * @version 1.0.0
  */
@@ -11,8 +11,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import bookRoutes from './routes/book.routes.js';
-import borrowRoutes from './routes/borrow.routes.js';
+import bookRoutes from "./routes/book.routes.js";
+import borrowRoutes from "./routes/borrow.routes.js";
 import cors from "cors";
 // Load environment variables from .env file
 dotenv.config();
@@ -21,9 +21,14 @@ dotenv.config();
 const app = express();
 
 // Allow requests from your React dev server
-app.use(cors({
-  origin: ['http://localhost:5173']
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://library-management-client-phi-wheat.vercel.app/",
+    ],
+  })
+);
 
 // Server configuration
 const PORT = process.env.PORT || 3000;
@@ -58,23 +63,23 @@ mongoose
  * Health check endpoint
  * Returns a simple message to verify the API is running
  */
-app.get('/', (req, res) => {
-  res.send('Library Management API is running');
-})
+app.get("/", (req, res) => {
+  res.send("Library Management API is running");
+});
 
 /**
  * Book management routes
  * Handles CRUD operations for books
  * Base path: /api/books
  */
-app.use('/api/books', bookRoutes);
+app.use("/api/books", bookRoutes);
 
 /**
  * Borrow management routes
  * Handles borrowing and returning books
  * Base path: /api/borrow
  */
-app.use('/api/borrow', borrowRoutes)
+app.use("/api/borrow", borrowRoutes);
 
 // Export the app for testing purposes
 export default app;
